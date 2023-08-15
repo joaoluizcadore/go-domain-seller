@@ -7,13 +7,14 @@ import (
 	"github.com/joaoluizcadore/domain-seller/config"
 )
 
-func SendNotification(msg string) error {
-	config := config.NewConfig()
-	auth := smtp.PlainAuth("", config.SMTPUsername, config.SMTPPassword, config.SMTPHost)
+func SendEmail(to string, title string, text string) error {
+	cfg := config.GetConfig()
 
-	host := fmt.Sprintf("%v:%v", config.SMTPHost, config.SMTPPort)
+	auth := smtp.PlainAuth("", cfg.SMTPUsername, cfg.SMTPPassword, cfg.SMTPHost)
 
-	body := []byte(fmt.Sprintf("To: %v\r\nSubject: Domain Seller - New Notification\r\n\r\n%v\r\n", config.SendNotificationTo, msg))
+	host := fmt.Sprintf("%v:%v", cfg.SMTPHost, cfg.SMTPPort)
 
-	return smtp.SendMail(host, auth, config.SMTPUsername, []string{config.SendNotificationTo}, body)
+	body := []byte(fmt.Sprintf("To: %v\r\nSubject: %v\r\n\r\n%v\r\n", to, title, text))
+
+	return smtp.SendMail(host, auth, cfg.SMTPUsername, []string{to}, body)
 }

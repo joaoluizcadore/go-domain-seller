@@ -3,6 +3,7 @@ package infra_test
 import (
 	"testing"
 
+	"github.com/joaoluizcadore/domain-seller/config"
 	"github.com/joaoluizcadore/domain-seller/infra"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
@@ -13,7 +14,7 @@ func TestSendMail(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err := infra.SendNotification("Test message")
+	err := infra.SendEmail(config.GetConfig().SendNotificationTo, "Email title", "Test message")
 
 	assert.Nil(t, err)
 }
