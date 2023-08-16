@@ -4,24 +4,19 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joaoluizcadore/domain-seller/internal/service"
+	"github.com/joaoluizcadore/domain-seller/internal/shared"
 )
-
-type Message struct {
-	Name    string `form:"name" json:"name" binding:"required"`
-	Email   string `form:"email" json:"email" binding:"required"`
-	Message string `form:"message" json:"message" binding:"required"`
-	Phone   string `form:"phone" json:"phone" binding:"required"`
-}
 
 func IndexAction(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "index.tmpl", gin.H{
 		"title": "Domínio à venda!",
-		"form":  &Message{},
+		"form":  &shared.Message{},
 	})
 }
 
 func SendMessageAction(ctx *gin.Context) {
-	var msg Message
+	var msg shared.Message
 
 	if err := ctx.ShouldBind(&msg); err != nil {
 		ctx.HTML(http.StatusBadRequest, "index.tmpl", gin.H{
@@ -29,12 +24,27 @@ func SendMessageAction(ctx *gin.Context) {
 			"error_message": "Atenção: Todos os campos são necessários, verifique!",
 			"form":          msg,
 		})
+		return
+	}
+
+	msg.Domain = ctx.Request.Host
+
+	notificationService := service.NewNotificationService()
+	err := notificationService.SendNotification(msg)
+
+	if err != nil {
+		ctx.HTML(http.StatusBadRequest, "index.tmpl", gin.H{
+			"title":         "Domínio à venda!",
+			"error_message": "Ocorreu um erro ao enviar a mensagem, tente novamente mais tarde!",
+			"form":          msg,
+		})
+		return
 	}
 
 	ctx.HTML(http.StatusOK, "index.tmpl", gin.H{
 		"title":           "Domínio à venda!",
 		"success_message": "Mensagem enviada com sucesso! Em breve entraremos em contato.",
-		"form":            &Message{},
+		"form":            &shared.Message{},
 	})
 
 }
