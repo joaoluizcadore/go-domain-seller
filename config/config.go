@@ -32,7 +32,7 @@ func GetConfig() *Config {
 				panic(err)
 			}
 
-			serverPort, err := strconv.Atoi(os.Getenv("SMTP_PORT"))
+			serverPort, err := strconv.Atoi(os.Getenv("SERVER_PORT"))
 			if err != nil {
 				log.Fatalf("Invalid SERVER_PORT configuration: %v", err)
 				panic(err)
