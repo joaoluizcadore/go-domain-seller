@@ -1,3 +1,69 @@
 {{ define "visit_count_summary.tmpl" }}
 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ .title }}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/static/css/style.css" />
+
+        <style>
+            .visits-summary-box {
+                background-color: var(--secondary-color);
+                padding: 20px;
+                border-radius: 5px;
+            }
+            .visits-summary-box table {
+                width: 100%;
+                text-align: center;
+                border: none;
+            }
+            .visits-summary-box thead {
+                background-color: #276948;
+                font-weight: bold;
+            }
+            .visits-summary-box tbody {
+                background-color: white;
+                color: black;
+            }
+            .visits-summary-box table th,
+            td {
+                padding: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="root">
+            <div class="visits-summary-box">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>Domínio</th>
+                            <th>Qtde Visitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{
+                            range.visits
+                        }}
+                        <tr>
+                            <td>{{ .Domain }}</td>
+                            <td>{{ .Qty }}</td>
+                        </tr>
+                        {{
+                            end
+                        }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
 {{ end }}

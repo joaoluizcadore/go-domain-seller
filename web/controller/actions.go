@@ -54,19 +54,19 @@ func SendMessageAction(ctx *gin.Context) {
 	})
 }
 
-func ShowVisitsAction(ctx *gin.Context) {
+func ShowVisitCountSummaryAction(ctx *gin.Context) {
 	visitsService := application.GetApp().VisitService
 	visits, err := visitsService.GetListSummary()
 
 	if err != nil {
-		ctx.HTML(http.StatusBadRequest, "visits.tmpl", gin.H{
-			"title":         "Visitas",
+		ctx.HTML(http.StatusBadRequest, "visit_count_summary.tmpl", gin.H{
+			"title":         "Contagem de visitas",
 			"error_message": "Ocorreu um erro ao buscar as visitas, tente novamente mais tarde!",
 			"visits":        nil,
 		})
 	} else {
-		ctx.HTML(http.StatusOK, "visits.tmpl", gin.H{
-			"title":  "Visitas",
+		ctx.HTML(http.StatusOK, "visit_count_summary.tmpl", gin.H{
+			"title":  "Contagem de Visitas",
 			"visits": visits,
 		})
 	}

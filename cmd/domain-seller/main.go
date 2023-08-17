@@ -9,17 +9,20 @@ import (
 	"github.com/joaoluizcadore/domain-seller/infra/database"
 	"github.com/joaoluizcadore/domain-seller/internal/application"
 	"github.com/joaoluizcadore/domain-seller/web/controller"
+	"github.com/joaoluizcadore/domain-seller/web/middleware"
 	"github.com/joho/godotenv"
 )
 
 func initializeServer() {
 	router := gin.Default()
+	router.Use(middleware.StoreVisitCount())
 
 	router.LoadHTMLGlob(("web/templates/*.tmpl"))
 	router.Static("/static", "web/static")
 
 	router.GET("/", controller.IndexAction)
 	router.POST("/", controller.SendMessageAction)
+	router.GET("/visits", controller.ShowVisitCountSummaryAction)
 
 	router.Run(fmt.Sprintf(":%v", config.GetConfig().ServerPort))
 }
