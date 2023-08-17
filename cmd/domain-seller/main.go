@@ -6,6 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joaoluizcadore/domain-seller/config"
+	"github.com/joaoluizcadore/domain-seller/infra/database"
+	"github.com/joaoluizcadore/domain-seller/internal/application"
 	"github.com/joaoluizcadore/domain-seller/web/controller"
 	"github.com/joho/godotenv"
 )
@@ -14,6 +16,7 @@ func initializeServer() {
 	router := gin.Default()
 
 	router.LoadHTMLGlob(("web/templates/*.tmpl"))
+	router.Static("/static", "web/static")
 
 	router.GET("/", controller.IndexAction)
 	router.POST("/", controller.SendMessageAction)
@@ -29,6 +32,9 @@ func main() {
 	}
 
 	log.Println("Starting server...")
-	initializeServer()
+	db := database.NewDBConnection()
+	application.InitializeApplication(db)
+	defer db.Close()
 
+	initializeServer()
 }

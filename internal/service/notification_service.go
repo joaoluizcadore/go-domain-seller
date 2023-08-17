@@ -25,5 +25,7 @@ func buildMessage(msg shared.Message) string {
 			"Name:  %s\n"+
 			"Email: %s\n"+
 			"Phone: %s\n"+
-			"Message: %s\n", msg.Domain, msg.Name, msg.Email, msg.Phone, msg.Message)
+			"IP: %s\n"+
+			"Date: %v\n"+
+			"Message: %s\n\n", msg.Domain, msg.Name, msg.Email, msg.Phone, msg.IP, msg.Date, msg.Message)
 }

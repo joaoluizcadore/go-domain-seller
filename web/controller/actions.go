@@ -2,8 +2,10 @@ package controller
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joaoluizcadore/domain-seller/internal/application"
 	"github.com/joaoluizcadore/domain-seller/internal/service"
 	"github.com/joaoluizcadore/domain-seller/internal/shared"
 )
@@ -13,6 +15,7 @@ func IndexAction(ctx *gin.Context) {
 		"title": "Domínio à venda!",
 		"form":  &shared.Message{},
 	})
+
 }
 
 func SendMessageAction(ctx *gin.Context) {
@@ -28,6 +31,9 @@ func SendMessageAction(ctx *gin.Context) {
 	}
 
 	msg.Domain = ctx.Request.Host
+	msg.IP = ctx.ClientIP()
+	now := time.Now()
+	msg.Date = &now
 
 	notificationService := service.NewNotificationService()
 	err := notificationService.SendNotification(msg)
@@ -46,5 +52,22 @@ func SendMessageAction(ctx *gin.Context) {
 		"success_message": "Mensagem enviada com sucesso! Em breve entraremos em contato.",
 		"form":            &shared.Message{},
 	})
+}
 
+func ShowVisitsAction(ctx *gin.Context) {
+	visitsService := application.GetApp().VisitService
+	visits, err := visitsService.GetListSummary()
+
+	if err != nil {
+		ctx.HTML(http.StatusBadRequest, "visits.tmpl", gin.H{
+			"title":         "Visitas",
+			"error_message": "Ocorreu um erro ao buscar as visitas, tente novamente mais tarde!",
+			"visits":        nil,
+		})
+	} else {
+		ctx.HTML(http.StatusOK, "visits.tmpl", gin.H{
+			"title":  "Visitas",
+			"visits": visits,
+		})
+	}
 }
