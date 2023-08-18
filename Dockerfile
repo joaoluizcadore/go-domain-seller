@@ -3,6 +3,7 @@ FROM golang:1.20-alpine as builder
 WORKDIR /app
 COPY . .
 
+RUN go mod download
 RUN go build -o bin/domain-seller cmd/domain-seller/main.go
 
 
