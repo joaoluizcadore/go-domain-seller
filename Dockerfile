@@ -11,8 +11,11 @@ RUN go mod tidy && \
 FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/bin/domain-seller /app/.env ./
-RUN mkdir -p /app/web/templates
+RUN mkdir -p /app/web/templates && mkdir -p /app/web/static
 COPY ./web/templates/* /app/web/templates
+COPY ./web/static/* /app/web/static
+
+
 ENV GIN_MODE=release
 
 EXPOSE 8080
