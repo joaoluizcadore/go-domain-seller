@@ -3,8 +3,8 @@ FROM golang:1.20-alpine as builder
 WORKDIR /app
 COPY . .
 
-RUN rm go.sum && go mod tidy
-RUN go build -o bin/domain-seller cmd/domain-seller/main.go
+RUN apk update && apk add gcc libc-dev
+RUN go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o  bin/domain-seller cmd/domain-seller/main.go
 
 
 FROM alpine:latest

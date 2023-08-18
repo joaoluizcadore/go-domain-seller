@@ -7,6 +7,8 @@ services:
       image: joaoluizcadore/domain-seller-app
       container_name: app
       restart: unless-stopped
+      volumes:
+        - ./db:/app/db
       networks:
         - ds_network
       tty: true
@@ -27,3 +29,7 @@ services:
 networks:
   ds_network:
     driver: bridge
+
+volumes:
+  db:
+
