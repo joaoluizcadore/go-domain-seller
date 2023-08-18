@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN apk update && apk add gcc libc-dev
-RUN go mod tidy \ 
+RUN go mod tidy && \ 
   go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o  bin/domain-seller cmd/domain-seller/main.go
 
 
