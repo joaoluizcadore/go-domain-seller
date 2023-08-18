@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 type Visit struct {
 	Id        int64      `json:"id"`
@@ -18,7 +21,11 @@ func NewVisit(domain string, ip string, visitDate *time.Time) *Visit {
 
 	return &Visit{
 		VisitDate: visitDate,
-		Domain:    domain,
+		Domain:    cleanDomain(domain),
 		IP:        ip,
 	}
+}
+
+func cleanDomain(domain string) string {
+	return strings.Replace(domain, "www.", "", -1)
 }
