@@ -15,82 +15,84 @@
         <link rel="stylesheet" href="/static/css/style.css" />
     </head>
     <body>
-        <div class="root">
-            <header>
-                <h2>Esse domínio está à venda!</h2>
-                <h3>
-                    Se estiver interessado(a), entre em contato no formulário
-                    abaixo!
-                </h3>
-            </header>
-            <div class="form-box">
-                {{ if .success_message }}
-                <div class="success_message">
-                    <p>
-                        {{ .success_message }}
-                    </p>
-                </div>
-                {{ end }}
-
-                {{ if .error_message }}
-                <div class="error_message">
-                    <p>
-                        {{ .error_message }}
-                    </p>
-                </div>
-                {{ end }}
-
-                <form method="post" action="/">
-                    <div>
-                        <label for="name">Nome:</label>
-                        <input
-                            class="input"
-                            type="text"
-                            id="name"
-                            name="name"
-                            value="{{ .form.Name }}"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label for="email">E-mail:</label>
-                        <input
-                            class="input"
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="{{ .form.Email }}"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label for="phone">Fone/Whatsapp:</label>
-                        <input
-                            class="input"
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value="{{ .form.Phone }}"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label for="message">Mensagem:</label>
-                        <textarea
-                            class="input"
-                            rows="5"
-                            id="message"
-                            name="message"
-                            required
-                            >{{ .form.Message }}</textarea
-                        >
-                    </div>
-                    <div class="center">
-                        <button type="submit">Enviar</button>
-                    </div>
-                </form>
+        <main class="general">
+            <div class="info">
+                <h2>
+                    <span>O domínio</span>
+                    <p class="domain">vaneg.com.br</p>
+                    <span>está a venda</span>
+                </h2>
             </div>
-        </div>
+            <div class="form">
+                <div class="form-box">
+                    {{ if .success_message }}
+                    <div class="success_message">
+                        <p>
+                            {{ .success_message }}
+                        </p>
+                    </div>
+                    {{ end }}
+        
+                    {{ if .error_message }}
+                    <div class="error_message">
+                        <p>
+                            {{ .error_message }}
+                        </p>
+                    </div>
+                    {{ end }}
+                    <h3>Caso tenha interesse, fale conosco</h3>
+                    <form method="post" action="/">
+                        <div>
+                            <label for="name">Nome:</label>
+                            <input
+                                class="input"
+                                type="text"
+                                id="name"
+                                name="name"
+                                value="{{ .form.Name }}"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="email">E-mail:</label>
+                            <input
+                                class="input"
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="{{ .form.Email }}"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="phone">Fone/Whatsapp:</label>
+                            <input
+                                class="input"
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value="{{ .form.Phone }}"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="message">Mensagem:</label>
+                            <textarea
+                                class="input"
+                                rows="5"
+                                id="message"
+                                name="message"
+                                required
+                                >{{ .form.Message }}</textarea
+                            >
+                        </div>
+                        <button type="submit">Enviar</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </main>
     </body>
+    
 </html>
 {{ end }}
