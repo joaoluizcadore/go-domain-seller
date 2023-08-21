@@ -8,8 +8,8 @@ import (
 	"github.com/joaoluizcadore/domain-seller/config"
 	"github.com/joaoluizcadore/domain-seller/infra/database"
 	"github.com/joaoluizcadore/domain-seller/internal/application"
-	"github.com/joaoluizcadore/domain-seller/web/controller"
-	"github.com/joaoluizcadore/domain-seller/web/middleware"
+	"github.com/joaoluizcadore/domain-seller/internal/controller"
+	"github.com/joaoluizcadore/domain-seller/internal/middleware"
 	"github.com/joho/godotenv"
 )
 
