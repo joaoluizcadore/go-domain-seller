@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"strings"
 	"time"
+
+	"github.com/joaoluizcadore/domain-seller/internal/utils"
 )
 
 type Visit struct {
@@ -21,11 +22,7 @@ func NewVisit(domain string, ip string, visitDate *time.Time) *Visit {
 
 	return &Visit{
 		VisitDate: visitDate,
-		Domain:    cleanDomain(domain),
+		Domain:    utils.CleanDomain(domain),
 		IP:        ip,
 	}
-}
-
-func cleanDomain(domain string) string {
-	return strings.Replace(domain, "www.", "", -1)
 }

@@ -19,7 +19,7 @@
             <div class="info">
                 <h2>
                     <span>O domínio</span>
-                    <p class="domain">vaneg.com.br</p>
+                    <p class="domain">{{ .domain }}</p>
                     <span>está a venda</span>
                 </h2>
             </div>
@@ -32,7 +32,7 @@
                         </p>
                     </div>
                     {{ end }}
-        
+
                     {{ if .error_message }}
                     <div class="error_message">
                         <p>
@@ -87,12 +87,10 @@
                             >
                         </div>
                         <button type="submit">Enviar</button>
-                        
                     </form>
                 </div>
             </div>
         </main>
     </body>
-    
 </html>
 {{ end }}
